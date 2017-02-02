@@ -30,6 +30,13 @@
             <url>http://proguard.sourceforge.net/GPL.html</url>
         </license>
     </licenses>
+    <repositories>
+        <repository>
+            <id>gradle releases</id>
+            <name>gradle releases</name>
+            <url>https://repo.gradle.org/gradle/libs-releases-local/</url>
+        </repository>
+    </repositories>
     <developers>
         <developer>
             <name>Eric Lafortune</name>
@@ -49,13 +56,23 @@
             <optional>true</optional>
             <type>jar</type>
         </dependency>
+
         <dependency>
-            <groupId>com.sun.kvem</groupId>
-            <artifactId>kenv</artifactId>
-            <version>2.2</version>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.4.8</version>
             <optional>true</optional>
             <type>jar</type>
         </dependency>
+
+        <dependency>
+            <groupId>net.sf.proguard</groupId>
+            <artifactId>proguard-gradle</artifactId>
+            <version>5.3.2</version>
+            <optional>true</optional>
+            <type>jar</type>
+        </dependency>
+
     </dependencies>
     <build>
         <sourceDirectory>src</sourceDirectory>

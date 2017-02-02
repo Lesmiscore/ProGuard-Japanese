@@ -24,17 +24,51 @@ import java.util.*;
 
 
 /**
- * This <code>NameFactory</code> generates unique short names, using mixed-case
- * characters or lower-case characters only.
+ * This <code>NameFactory</code> generates unique short names, using hiragana and katagana
+ * characters or hiragana characters only.
  *
  * @author Eric Lafortune
  */
 public class SimpleNameFactory implements NameFactory
 {
-    private static final int CHARACTER_COUNT = 26;
 
     private static final List cachedMixedCaseNames = new ArrayList();
     private static final List cachedLowerCaseNames = new ArrayList();
+
+    private static final String HIRAGANA_CHARACTERS=new StringBuilder()
+            .append("あいうえお")//  A Row
+            .append("かきくけこ")// KA Row
+            .append("さしすせそ")// SA Row
+            .append("たちつてと")// TA Row
+            .append("なにぬねの")// NA Row
+            .append("はひふへほ")// HA Row
+            .append("まみむめも")// MA Row
+            .append("やゆよ")    // YA Row
+            .append("らりるれろ")// RA Row
+            .append("わをん")    // WA Row
+            .append("ぁぃぅぇぉ")//  A Row (Sutegana)
+            .append("ゃゅょ")    // YA Row (Sutegana)
+            .append("ゎ")        // WA Row (Only "WA" has sutegana, but others don't)
+            .toString();
+
+    private static final String KATAGANA_CHARACTERS=new StringBuilder()
+            .append("アイウエオ")//  A Row
+            .append("カキクケコ")// KA Row
+            .append("サシスセソ")// SA Row
+            .append("タチツテト")// TA Row
+            .append("ナニヌネノ")// NA Row
+            .append("ハヒフヘホ")// HA Row
+            .append("マミムメモ")// MA Row
+            .append("ヤユヨ")    // YA Row
+            .append("ラリルレロ")// RA Row
+            .append("ワヲン")    // WA Row
+            .append("ァィゥェォ")//  A Row (Sutegana)
+            .append("ヵ")         // KA Row (Only "KA" has sutegana in katagana, but others don't)
+            .append("ャュョ")    // YA Row (Sutegana)
+            .append("ヮ")        // WA Row (Only "WA" has sutegana, but others don't)
+            .toString();
+
+    private static final String ALL_CHARACTERS=HIRAGANA_CHARACTERS+KATAGANA_CHARACTERS;
 
     private final boolean generateMixedCaseNames;
     private int     index = 0;
@@ -106,8 +140,8 @@ public class SimpleNameFactory implements NameFactory
         // If we're allowed to generate mixed-case names, we can use twice as
         // many characters.
         int totalCharacterCount = generateMixedCaseNames ?
-            2 * CHARACTER_COUNT :
-            CHARACTER_COUNT;
+                ALL_CHARACTERS.length() :
+                HIRAGANA_CHARACTERS.length();
 
         int baseIndex = index / totalCharacterCount;
         int offset    = index % totalCharacterCount;
@@ -128,8 +162,7 @@ public class SimpleNameFactory implements NameFactory
      */
     private char charAt(int index)
     {
-        return (char)((index < CHARACTER_COUNT ? 'a' - 0               :
-                                                 'A' - CHARACTER_COUNT) + index);
+        return (generateMixedCaseNames?ALL_CHARACTERS:HIRAGANA_CHARACTERS).charAt(index);
     }
 
 
